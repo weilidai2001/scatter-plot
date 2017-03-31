@@ -22,7 +22,6 @@ csvtojson()
     .fromFile('./data.csv')
     .on('json', ({x, y}) => {
         data.push({
-            type: 'One',
             x,
             y
         })
