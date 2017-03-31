@@ -1,8 +1,20 @@
 import express from 'express';
 import csvtojson from 'csvtojson';
 
+const webpack = require('webpack');
+const path = require('path');
+const config = require('../webpack.config.dev');
+
 const PORT = 3001;
 const app = express();
+const compiler = webpack(config);
+
+app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
 
 let data = [];
 
@@ -21,9 +33,9 @@ csvtojson()
         } else {
             app.use('/scatter-data', (req, res) => res.json(data));
 
-            app.use('/', (req, res) => res.json({
-                status: 'OK'
-            }));
+            app.get('*', function(req, res) {
+                res.sendFile(path.join( __dirname, '../src/index.html'));
+            });
 
             app.listen(PORT, () => console.log(`Data loaded. Server is running on port ${PORT}`));
         }
