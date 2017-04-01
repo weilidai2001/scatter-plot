@@ -1,15 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { ScatterplotChart } from 'react-easy-chart';
+import {ScatterplotChart} from 'react-easy-chart';
+import Loader from 'react-loader';
 
 class Homepage extends React.Component {
     render() {
-        const { minX, maxX, minY, maxY, points, ajaxStatus } = this.props;
+        const {minX, maxX, minY, maxY, points, ajaxStatus} = this.props;
 
-        if (ajaxStatus) {
-            return (<div>Loading</div>)
-        } else {
-            return (
+        return (
+            <Loader loaded={!ajaxStatus}>
                 <ScatterplotChart
                     data={points}
                     axes
@@ -19,8 +18,8 @@ class Homepage extends React.Component {
                     xDomainRange={[minX, maxX]}
                     yDomainRange={[minY, maxY]}
                 />
-            )
-        }
+            </Loader>
+        )
     }
 }
 
