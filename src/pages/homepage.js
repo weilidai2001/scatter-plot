@@ -21,7 +21,7 @@ class Homepage extends PureComponent {
                 <ScatterplotChart
                     data={points}
                     axes
-                    axisLabels={{x: 'X', y: 'Y'}}
+                    axisLabels={{ x: 'X', y: 'Y' }}
                     width={document.body.clientWidth - 100}
                     height={500}
                     xDomainRange={[minX, maxX]}
@@ -33,7 +33,7 @@ class Homepage extends PureComponent {
 }
 
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         ajaxStatus: state.ajaxStatus,
         ...state.chartData

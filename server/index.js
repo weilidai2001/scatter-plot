@@ -19,7 +19,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-const data = [];
+let data = []; // eslint-disable-line prefer-const
 
 csvtojson()
     .fromFile('./data.csv')
@@ -31,7 +31,7 @@ csvtojson()
     })
     .on('done', (error) => {
         if (error) {
-            console.log('Unable to load CSV file')
+            console.log('Unable to load CSV file');
         } else {
             app.use('/scatter-data', (req, res) => {
                 const result = {

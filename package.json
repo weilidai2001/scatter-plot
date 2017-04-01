@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all serve:src",
-    "lint": "eslint webpack.config.dev.js ./src/**.js",
+    "lint": "eslint webpack.config.dev.js ./src/**/*.js",
     "serve:src": "babel-node server/index.js"
   },
   "repository": {
