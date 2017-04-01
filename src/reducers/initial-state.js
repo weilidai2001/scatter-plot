@@ -5,5 +5,6 @@ export default {
         minY: 0,
         maxY: 0,
         points: []
-    }
+    },
+    isAjaxCallsInProgress: false
 };
