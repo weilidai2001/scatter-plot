@@ -1,9 +1,9 @@
 import * as types from './action-types';
 import propertyApi from '../api/chart-data-api';
-import {beginAjaxCall, ajaxCallError, ajaxCallSuccess} from './ajax-status-actions';
+import { beginAjaxCall, ajaxCallError, ajaxCallSuccess } from './ajax-status-actions';
 
 export function loadChartDataSuccess(data) {
-    return {type: types.LOAD_CHART_DATA_SUCCESS, data};
+    return { type: types.LOAD_CHART_DATA_SUCCESS, data };
 }
 
 export function loadChartData() {
@@ -12,12 +12,12 @@ export function loadChartData() {
 
         return propertyApi
             .getAllChartData()
-            .then(data => {
+            .then((data) => {
                 dispatch(ajaxCallSuccess(data));
                 dispatch(loadChartDataSuccess(data));
             })
-            .catch(error => {
-                throw(error)
+            .catch(() => {
+                dispatch(ajaxCallError());
             });
-    }
+    };
 }

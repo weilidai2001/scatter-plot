@@ -1,11 +1,20 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {ScatterplotChart} from 'react-easy-chart';
+import React, { PureComponent, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { ScatterplotChart } from 'react-easy-chart';
 import Loader from 'react-loader';
 
-class Homepage extends React.Component {
+class Homepage extends PureComponent {
+    static propTypes = {
+        minX: PropTypes.number.isRequired,
+        maxX: PropTypes.number.isRequired,
+        minY: PropTypes.number.isRequired,
+        maxY: PropTypes.number.isRequired,
+        points: PropTypes.array.isRequired,
+        ajaxStatus: PropTypes.bool.isRequired
+    }
+
     render() {
-        const {minX, maxX, minY, maxY, points, ajaxStatus} = this.props;
+        const { minX, maxX, minY, maxY, points, ajaxStatus } = this.props;
 
         return (
             <Loader loaded={!ajaxStatus}>
@@ -19,7 +28,7 @@ class Homepage extends React.Component {
                     yDomainRange={[minY, maxY]}
                 />
             </Loader>
-        )
+        );
     }
 }
 

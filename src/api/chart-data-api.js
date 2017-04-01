@@ -1,5 +1,5 @@
 export default class ChartDataApi {
     static getAllChartData() {
-        return fetch('/scatter-data').then(response => response.json());
+        return fetch('/scatter-data').then((response) => response.json());
     }
 }
