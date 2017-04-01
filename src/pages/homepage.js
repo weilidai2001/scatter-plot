@@ -1,5 +1,4 @@
 import React from 'react';
-import {ContainerQuery} from 'react-container-query';
 import {connect} from 'react-redux';
 import { ScatterplotChart } from 'react-easy-chart';
 
@@ -10,7 +9,9 @@ class Homepage extends React.Component {
         return (
             <ScatterplotChart
                 data={points}
-                width={document.body.clientWidth}
+                axes
+                axisLabels={{x: 'X', y: 'Y'}}
+                width={document.body.clientWidth - 100}
                 height={500}
                 xDomainRange={[minX, maxX]}
                 yDomainRange={[minY, maxY]}
