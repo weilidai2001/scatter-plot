@@ -6,7 +6,13 @@
   "scripts": {
     "start": "npm-run-all serve:src",
     "lint": "eslint webpack.config.dev.js ./src/**/*.js",
-    "serve:src": "babel-node server/index.js"
+    "serve:src": "babel-node server/index.js",
+    "clean-dist": "npm run remove-dist && mkdir dist",
+    "remove-dist": "node_modules/.bin/rimraf ./dist",
+    "build:html": "node tools/buildHtml.js",
+    "prebuild": "npm-run-all clean-dist build:html",
+    "build": "node tools/build.js",
+    "postbuild": "babel-node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +27,12 @@
   "devDependencies": {
     "babel-eslint": "^7.2.1",
     "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-1": "^6.22.0",
+    "cheerio": "^0.22.0",
+    "colors": "^1.1.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
@@ -31,6 +40,7 @@
     "eslint-plugin-react": "^6.10.3",
     "eventsource-polyfill": "^0.9.6",
     "react-hot-loader": "^1.3.1",
+    "rimraf": "^2.6.1",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.17.1"

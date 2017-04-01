@@ -7,7 +7,7 @@ export function loadChartDataSuccess(data) {
 }
 
 export function loadChartData() {
-    return function (dispatch) {
+    return (dispatch) => {
         dispatch(beginAjaxCall());
 
         return propertyApi

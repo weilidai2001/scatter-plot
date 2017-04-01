@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import express from 'express';
 import csvtojson from 'csvtojson';
 
@@ -17,7 +18,9 @@ app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: config.output.publicPath
 }));
 
-app.use(require('webpack-hot-middleware')(compiler));
+if (process.NODE_ENV !== 'production') {
+    app.use(require('webpack-hot-middleware')(compiler));
+}
 
 let data = []; // eslint-disable-line prefer-const
 
@@ -45,7 +48,11 @@ csvtojson()
                 return res.json(result);
             });
 
-            app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../src/index.html')));
+            if (process.NODE_ENV === 'production') {
+                app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../src/index.html')));
+            } else {
+                app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')));
+            }
 
             app.listen(PORT, () => console.log(`Data loaded. Server is running on port ${PORT}`));
         }
