@@ -1,6 +1,9 @@
 import express from 'express';
 import csvtojson from 'csvtojson';
 
+const min = arr => arr.reduce((a, b) => Math.min(a, b));
+const max = arr => arr.reduce((a, b) => Math.max(a, b));
+
 const webpack = require('webpack');
 const path = require('path');
 const config = require('../webpack.config.dev');
@@ -30,7 +33,17 @@ csvtojson()
         if (error) {
             console.log('Unable to load CSV file')
         } else {
-            app.use('/scatter-data', (req, res) => res.json(data));
+            app.use('/scatter-data', (req, res) => {
+                const result = {
+                    minX: min(data.map(p => p.x)),
+                    maxX: max(data.map(p => p.x)),
+                    minY: min(data.map(p => p.y)),
+                    maxY: max(data.map(p => p.y)),
+                    points: data
+                };
+
+                return res.json(result)
+            });
 
             app.get('*', function(req, res) {
                 res.sendFile(path.join( __dirname, '../src/index.html'));
