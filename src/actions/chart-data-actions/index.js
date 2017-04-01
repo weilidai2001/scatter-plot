@@ -12,13 +12,10 @@ export function loadChartData() {
 
         return getAllChartData()
             .then((data) => {
-            console.log('success')
                 dispatch(ajaxCallSuccess(data));
                 dispatch(loadChartDataSuccess(data));
             })
-            .catch((error) => {
-                console.log('error', error)
-
+            .catch(() => {
                 dispatch(ajaxCallError());
             });
     };
