@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 import express from 'express';
 import csvtojson from 'csvtojson';
+import { PORT } from '../config';
 
 const min = (arr) => arr.reduce((a, b) => Math.min(a, b));
 const max = (arr) => arr.reduce((a, b) => Math.max(a, b));
@@ -9,7 +10,6 @@ const webpack = require('webpack');
 const path = require('path');
 const config = require('../webpack.config.dev');
 
-const PORT = 3001;
 const app = express();
 const compiler = webpack(config);
 
