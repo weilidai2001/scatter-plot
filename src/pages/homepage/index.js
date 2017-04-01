@@ -5,12 +5,12 @@ import Loader from 'react-loader';
 
 class Homepage extends PureComponent {
     static propTypes = {
-        minX: PropTypes.number.isRequired,
-        maxX: PropTypes.number.isRequired,
-        minY: PropTypes.number.isRequired,
-        maxY: PropTypes.number.isRequired,
-        points: PropTypes.array.isRequired,
-        ajaxStatus: PropTypes.bool.isRequired
+        minX: PropTypes.number,
+        maxX: PropTypes.number,
+        minY: PropTypes.number,
+        maxY: PropTypes.number,
+        points: PropTypes.array,
+        ajaxStatus: PropTypes.bool
     }
 
     render() {
@@ -31,7 +31,6 @@ class Homepage extends PureComponent {
         );
     }
 }
-
 
 function mapStateToProps(state) {
     return {

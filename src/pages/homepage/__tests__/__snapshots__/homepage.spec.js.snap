@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`homepage UI should render 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <homepage
+    ajaxStatus={false}
+    maxX={100}
+    maxY={100}
+    minX={0}
+    minY={0}
+    points={Array []}
+/>,
+  "nodes": Array [
+    <homepage
+      ajaxStatus={false}
+      maxX={100}
+      maxY={100}
+      minX={0}
+      minY={0}
+      points={Array []}
+/>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": null,
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <homepage
+    ajaxStatus={false}
+    maxX={100}
+    maxY={100}
+    minX={0}
+    minY={0}
+    points={Array []}
+/>,
+}
+`;
