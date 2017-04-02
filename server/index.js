@@ -22,38 +22,41 @@ if (process.NODE_ENV !== 'production') {
     app.use(require('webpack-hot-middleware')(compiler));
 }
 
-let data = []; // eslint-disable-line prefer-const
+app.use('/scatter-data', (req, res) => {
+    let data = []; // eslint-disable-line prefer-const
 
-csvtojson()
-    .fromFile('./data.csv')
-    .on('json', ({ x, y }) => {
-        data.push({
-            x,
-            y
-        });
-    })
-    .on('done', (error) => {
-        if (error) {
-            console.log('Unable to load CSV file');
-        } else {
-            app.use('/scatter-data', (req, res) => {
-                const result = {
-                    minX: min(data.map((p) => p.x)),
-                    maxX: max(data.map((p) => p.x)),
-                    minY: min(data.map((p) => p.y)),
-                    maxY: max(data.map((p) => p.y)),
-                    points: data
-                };
-
-                return res.json(result);
+    csvtojson()
+        .fromFile('./data.csv')
+        .on('json', ({ x, y }) => {
+            data.push({
+                x,
+                y
             });
-
-            if (process.NODE_ENV === 'production') {
-                app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../src/index.html')));
-            } else {
-                app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')));
+        })
+        .on('done', (error) => {
+            if (error) {
+                console.log('Unable to load CSV file');
+                return res.status(500).json({
+                    err: 'Error loading CSV'
+                });
             }
 
-            app.listen(PORT, () => console.log(`Data loaded. Server is running on port ${PORT}`));
-        }
-    });
+            const result = {
+                minX: min(data.map((p) => p.x)),
+                maxX: max(data.map((p) => p.x)),
+                minY: min(data.map((p) => p.y)),
+                maxY: max(data.map((p) => p.y)),
+                points: data
+            };
+
+            return res.json(result);
+        });
+});
+
+if (process.NODE_ENV === 'production') {
+    app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../src/index.html')));
+} else {
+    app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')));
+}
+
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
